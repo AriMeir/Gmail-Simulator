@@ -1,0 +1,16 @@
+/* EmailIndex style */
+@import './assets/style/EmailIndex.css';
+@import './assets/style/EmailList.css';
+@import './assets/style/EmailFolderList.css';
+@import './assets/style/EmailPreview.css';
+@import './assets/style/EmailCompose.css';
+@import './assets/style/EmailDetails.css';
+
+
+/*basics*/
+@import './assets/style/basics.css';
+
+
+
+/*components*/
+@import './assets/style/Header.css'

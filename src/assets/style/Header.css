@@ -1,0 +1,65 @@
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px; 
+    background-color: var(--FILTER-COLOR);
+    color: #333;
+    padding-left: 70px;
+    z-index: 1000;
+  }
+  .gmail-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px; /* Adjust as needed */
+    height: 50px; /* Adjust as needed */
+  }
+  .gmail-logo {
+    width: 100%;
+    height: auto;
+    max-width: 100%; /* Ensure the image fits within the container */
+  }
+  .gmail-gmail{
+    font-size: 2rem;
+    padding-left:10px ;
+  }
+  .search-container{
+    width: 50%;
+    height: 60px;
+    margin-left: 100px;
+    border-radius: 100px;
+    background-color: var(--SEARCH-BAR-COLOR);
+    place-content: center;
+
+  
+  }
+  .search-form{
+    width: 100%;
+    gap :3%;
+  }
+  
+  form input {
+    width: 80%;
+    border: none;
+    background-color: var(--NO-BG-COLOR);
+    font-size: 1.7rem;
+    color:var( --BLACK-COLOR);
+    height: 60px;
+  }
+  .search-form button {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background-color: var(--NO-BG-COLOR);
+    padding-left:15px;
+    border:none
+    
+  }
+  .search-form button svg {
+    width: 100%;
+    height: 50%;
+    color: grey;
+  }
