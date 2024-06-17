@@ -6,6 +6,25 @@
     align-content: center;
     
 }
+.flex-row-reverse-center{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    
+}
+.flex-column-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    
+}
+.gap {
+    gap:10px
+}
 .flex-row-left{
     display: flex;
     flex-direction: row;

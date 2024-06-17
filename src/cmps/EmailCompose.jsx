@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { CgArrowsExpandLeft } from "react-icons/cg";
 import '../assets/style/EmailCompose.css';
 
 function EmailCompose({ onClose, onSend }) {
+  const [minimize, setMinimize] = useState(false);
   const [to, setTo] = useState('');
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,11 +19,20 @@ function EmailCompose({ onClose, onSend }) {
     onClose(); 
   };
 
+  function onMinimizeComposeWindow() {
+    setMinimize(prev => !prev)
+  }
+
+  if (minimize) return <div className='minimizeEmail'></div>
   return (
     <div className="email-compose">
       <div className="message-header">
         <span>New Message</span>
+        <div className='compose-button-options flex-row-reverse-center gap'>
         <button className="close-button" onClick={onClose}>&times;</button>
+        <button className="close-button open-bigger-compose-button" onClick={onClose}><CgArrowsExpandLeft /></button>
+        <button className="close-button minimize-button" onClick={onMinimizeComposeWindow}>_</button>
+        </div>
       </div>
       <form className="compose-form" onSubmit={handleSubmit}>
         <div className="form-group">

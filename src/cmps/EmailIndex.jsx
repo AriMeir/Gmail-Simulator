@@ -11,17 +11,6 @@ function EmailIndex() {
   // params
   const [searchParams, setSearchParams] = useSearchParams()
   const {folderId, query, emailId} = useParams()
-  
-  // use states
-  {/*setSearchParams((prev) => {
-            prev.set('compose', 'new')
-            return prev
-
-
-
-
-            const composeVal = searchParams.get('compose')
-        })*/}
   const [showCompose,setShowCompose] = useState(false)
   const [unread,setUnread] = useState({})
   /* const [currentLibrary, setCurrentLibrary] = useState('inbox') */
@@ -31,6 +20,7 @@ function EmailIndex() {
   const params = useParams()
   const navigate = useNavigate()
 
+
   // use Effects
   useEffect(() => {
     if(emailId) {
@@ -38,10 +28,6 @@ function EmailIndex() {
     }
     else if(query) {
       navigate(`/search/${query}`)
-    }
-    else if(!folderId) {
-      clearEmailToDisplay()
-      navigate('/inbox')
     } else {
       clearEmailToDisplay()
       navigate(`/${folderId}`)
@@ -61,6 +47,13 @@ function EmailIndex() {
     }
       loadUnreadEmailsNumber()
   },[params])
+
+
+  useEffect(() => {
+    const composeVal = searchParams.get('compose')
+    if(composeVal === 'new')
+      onOpenCompose()
+  },[])
 
 
 // functions
@@ -99,15 +92,27 @@ async function loadEmailToDisplay (emailId) {
 
 
 function onCloseCompose() {
-  setShowCompose(false)
+  setShowCompose(false);
+  setSearchParams((prev) => {
+    prev.delete('compose');
+    return prev;
+  });
 }
 function onOpenCompose() {
-  setShowCompose(true)
+  setShowCompose(true);
+  setSearchParams((prev) => {
+    prev.set('compose', 'new')
+    return prev;
+  })
 }
 // Send Email
 function onSend(email) {
   try {
   emailService.handleSendEmail(email)
+  setSearchParams((prev) => {
+    prev.delete('compose');
+    return prev;
+  });
   } catch(e) {
     console.log(e)
   }
@@ -204,6 +209,7 @@ async function onStarClick (emailId) {
         {(emailId && emailToDisplay) && <EmailDetails email={emailToDisplay} onUnreadEmailclick={onUnreadEmailclick} onTrashInEmailDetailsClick={onTrashInEmailDetailsClick}/>}
       </div>
       {showCompose && <EmailCompose onSend={onSend} onClose={onCloseCompose}/>}
+      
 
       </>
     )
