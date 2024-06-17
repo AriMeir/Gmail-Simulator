@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { CgArrowsExpandLeft } from "react-icons/cg";
+import { LuMinimize2 } from "react-icons/lu";
+
 import '../assets/style/EmailCompose.css';
 
 function EmailCompose({ onClose, onSend }) {
   const [minimize, setMinimize] = useState(false);
+  const [maximize, setMaximize] = useState(false);
   const [to, setTo] = useState('');
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
 
-
+  const bigCompose = maximize? "big-compose": ""
   const handleSubmit = (e) => {
     e.preventDefault();
     const email = { to, subject, body };
@@ -18,20 +21,37 @@ function EmailCompose({ onClose, onSend }) {
     setBody('');
     onClose(); 
   };
-
-  function onMinimizeComposeWindow() {
-    setMinimize(prev => !prev)
+  function onOpenFromMiminizeOrMaximize() {
+    setMaximize(false)
+    setMinimize(false)
+  }
+  function onminimizeWindowSize() {
+    setMaximize(false)
+    setMinimize(true)
+  }
+  function onMaximizeWindowSize() {
+    setMinimize(false)
+    setMaximize(true)
   }
 
-  if (minimize) return <div className='minimizeEmail'></div>
+  if (minimize) return (
+  <div className='minimizeEmail flex-row-center space-between' onClick={onOpenFromMiminizeOrMaximize}>
+        <div>New Message</div>
+        <div className='compose-button-options flex-row-reverse-center gap'>
+          <button className="close-button" onClick={onMaximizeWindowSize}>&times;</button>
+          <button className="close-button open-bigger-compose-button" onClick={onMaximizeWindowSize}><CgArrowsExpandLeft /></button>
+          
+        </div>
+  </div>)
   return (
-    <div className="email-compose">
+    <div className={`email-compose ${bigCompose} `}>
       <div className="message-header">
         <span>New Message</span>
         <div className='compose-button-options flex-row-reverse-center gap'>
-        <button className="close-button" onClick={onClose}>&times;</button>
-        <button className="close-button open-bigger-compose-button" onClick={onClose}><CgArrowsExpandLeft /></button>
-        <button className="close-button minimize-button" onClick={onMinimizeComposeWindow}>_</button>
+        <button className="close-button" onClick={onMaximizeWindowSize}>&times;</button>
+        {!maximize && (<button className="close-button open-bigger-compose-button" onClick={onMaximizeWindowSize}><CgArrowsExpandLeft /></button>)}
+        {maximize && (<button className="close-button open-bigger-compose-button" onClick={onOpenFromMiminizeOrMaximize}><LuMinimize2/></button>)}
+        <button className="close-button minimize-button" onClick={onminimizeWindowSize}>_</button>
         </div>
       </div>
       <form className="compose-form" onSubmit={handleSubmit}>
