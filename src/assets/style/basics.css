@@ -6,6 +6,10 @@
     align-content: center;
     
 }
+.grid-content-center {
+    display: grid;
+    place-content: center;
+}
 .flex-row-reverse-center{
     display: flex;
     flex-direction: row-reverse;
@@ -98,4 +102,7 @@ svg{
 .bg-clr-chsn-fldr{
     background-color: var(--CHOSEN-FOLDER-COLOR);
     
+}
+.content-center{
+    place-content: center;
 }

@@ -63,3 +63,33 @@
     height: 50%;
     color: grey;
   }
+  .email-orginzier{
+    width: 40px;
+    height: 40px;
+    font-size: 4rem;
+  }
+  .sort-bar{
+    position: fixed;
+    top: 10%;
+    left: 500px;
+    width: 40%;
+    min-width: 400px;
+    height: 80px; 
+    justify-content: space-around;
+    background-color: var(--FILTER-COLOR);
+    border-radius: 25px;
+    z-index: 1000;
+  }
+  .sortItem{
+    width: 30%;
+    min-width: 100px;
+    height: 30px;
+    cursor: pointer;
+    background-color: var(--WHITE-COLOR);
+    box-shadow: 0 0 0 2px rgb(0,0,0,0.1);
+    border-radius: 25px;
+  }
+  .sortItem:hover {
+    background-color: var(--FILTER-BUTTON-HOVER);
+    color:#333;
+  }

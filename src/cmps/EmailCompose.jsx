@@ -5,13 +5,13 @@ import { LuMinimize2 } from "react-icons/lu";
 import '../assets/style/EmailCompose.css';
 
 function EmailCompose({ onClose, onSend }) {
-  const [minimize, setMinimize] = useState(false);
-  const [maximize, setMaximize] = useState(false);
+  const [emailState, setEmailState] = useState('normal');
+  
   const [to, setTo] = useState('');
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
 
-  const bigCompose = maximize? "big-compose": ""
+  const bigCompose = emailState === 'large'? "big-compose": ""
   const handleSubmit = (e) => {
     e.preventDefault();
     const email = { to, subject, body };
@@ -22,24 +22,22 @@ function EmailCompose({ onClose, onSend }) {
     onClose(); 
   };
   function onOpenFromMiminizeOrMaximize() {
-    setMaximize(false)
-    setMinimize(false)
+    setEmailState('normal')
   }
   function onminimizeWindowSize() {
-    setMaximize(false)
-    setMinimize(true)
+    setEmailState('mini')
   }
   function onMaximizeWindowSize() {
-    setMinimize(false)
-    setMaximize(true)
+    setEmailState('large')
   }
 
-  if (minimize) return (
+  if (emailState === 'mini') return (
   <div className='minimizeEmail flex-row-center space-between' onClick={onOpenFromMiminizeOrMaximize}>
         <div>New Message</div>
         <div className='compose-button-options flex-row-reverse-center gap'>
-          <button className="close-button" onClick={onMaximizeWindowSize}>&times;</button>
-          <button className="close-button open-bigger-compose-button" onClick={onMaximizeWindowSize}><CgArrowsExpandLeft /></button>
+          <button className="close-button" onClick={onClose}>&times;</button>
+          <button className="close-button open-bigger-compose-button" onClick={(e) => { e.stopPropagation()
+                                                                                        onMaximizeWindowSize()}}><CgArrowsExpandLeft /></button>
           
         </div>
   </div>)
@@ -48,9 +46,9 @@ function EmailCompose({ onClose, onSend }) {
       <div className="message-header">
         <span>New Message</span>
         <div className='compose-button-options flex-row-reverse-center gap'>
-        <button className="close-button" onClick={onMaximizeWindowSize}>&times;</button>
-        {!maximize && (<button className="close-button open-bigger-compose-button" onClick={onMaximizeWindowSize}><CgArrowsExpandLeft /></button>)}
-        {maximize && (<button className="close-button open-bigger-compose-button" onClick={onOpenFromMiminizeOrMaximize}><LuMinimize2/></button>)}
+        <button className="close-button" onClick={onClose}>&times;</button>
+        {emailState === 'normal' && (<button className="close-button open-bigger-compose-button" onClick={onMaximizeWindowSize}><CgArrowsExpandLeft /></button>)}
+        {emailState === 'large' && (<button className="close-button open-bigger-compose-button" onClick={onOpenFromMiminizeOrMaximize}><LuMinimize2/></button>)}
         <button className="close-button minimize-button" onClick={onminimizeWindowSize}>_</button>
         </div>
       </div>

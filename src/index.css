@@ -14,6 +14,7 @@
   
   color: black;
   background-color: white;
+  --WHITE-COLOR:white;
   --FILTER-COLOR:#e8effa;
   --HOVER-COLOR:#c5ccd6;
   --EMAIL-PREVIEW-HOVER-COLOR:#202124;

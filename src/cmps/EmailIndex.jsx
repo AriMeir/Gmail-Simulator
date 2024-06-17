@@ -4,6 +4,7 @@ import Header from "./Header"
 import EmailCompose from "./EmailCompose"
 import { emailService } from "../services/email.service"
 import EmailDetails from "./EmailDetails"
+import SortBar from "./SortBar"
 import { useEffect, useState } from "react"
 import { useNavigate, useParams, useSearchParams  } from "react-router-dom"
 
@@ -11,6 +12,7 @@ function EmailIndex() {
   // params
   const [searchParams, setSearchParams] = useSearchParams()
   const {folderId, query, emailId} = useParams()
+  const [showSortBar,setShowSortBar] = useState(false)
   const [showCompose,setShowCompose] = useState(false)
   const [unread,setUnread] = useState({})
   /* const [currentLibrary, setCurrentLibrary] = useState('inbox') */
@@ -20,7 +22,7 @@ function EmailIndex() {
   const params = useParams()
   const navigate = useNavigate()
 
-
+  
   // use Effects
   useEffect(() => {
     if(emailId) {
@@ -57,6 +59,11 @@ function EmailIndex() {
 
 
 // functions
+
+
+function onSortClick() {
+  setShowSortBar(prev => !prev)
+}
 
 function clearEmailToDisplay() {
   setEmailToDisplay('')
@@ -201,7 +208,8 @@ async function onStarClick (emailId) {
 // ------------------------ Page ------------------------------------
     return (
       <>
-      <Header filter={filter} setFilter={setFilter} handleFilterSubmit={handleFilterSubmit}/>
+      <Header filter={filter} setFilter={setFilter} handleFilterSubmit={handleFilterSubmit} onSortClick={onSortClick}/>
+      {showSortBar && <SortBar/>}
       <div className="body_container flex-row-center">
         <EmailFolderList onFolderClick={onFolderClick} unread={unread} currentFolder={folderId} onOpen={onOpenCompose}/>
 
@@ -209,8 +217,6 @@ async function onStarClick (emailId) {
         {(emailId && emailToDisplay) && <EmailDetails email={emailToDisplay} onUnreadEmailclick={onUnreadEmailclick} onTrashInEmailDetailsClick={onTrashInEmailDetailsClick}/>}
       </div>
       {showCompose && <EmailCompose onSend={onSend} onClose={onCloseCompose}/>}
-      
-
       </>
     )
   }
