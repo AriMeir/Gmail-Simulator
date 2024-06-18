@@ -22,8 +22,8 @@ function Header({filter, setFilter, handleFilterSubmit, onSortClick}) {
                     <input placeholder='search emails'
                       value={filter}
                       onChange={(e) => setFilter(e.target.value)}></input>
-                        <div className='email-orginzier grid-content-center icon-button '>
-                        <HiAdjustmentsHorizontal onClick={onSortClick} />
+                        <div className='email-orginzier grid-content-center icon-button ' onClick={onSortClick}>
+                        <HiAdjustmentsHorizontal  />
                         </div>
                   </form>
               

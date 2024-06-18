@@ -4,7 +4,7 @@ import { FiTrash2 } from "react-icons/fi";
 
 function EmailPreview({email, onStarClick, onTrashClick, onEmailClick}) {
   const isRead = email.isRead ? '' : 'bold'
-  const isStarred = email.isStarred ? "⭐" : '☆'
+  const isStarred = email.isStarred ? <span className="star-big">⭐</span> :<span className="star"> ☆</span>
   const formatTime = (timestamp) => {
     const date = new Date(timestamp);
     const hours = date.getHours().toString().padStart(2, '0');
@@ -49,9 +49,7 @@ function cutEmailBody(email) {
         <button className="trash icon-button" onClick={(e) => {
           e.stopPropagation()
           onTrashClick(email.id)}}>
-          
-          <span className="trash-icon"><FiTrash2/></span>
-          
+          <span className="trash-icon"><FiTrash2/></span>  
         </button>
        
         </div>

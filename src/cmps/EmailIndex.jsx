@@ -7,6 +7,7 @@ import EmailDetails from "./EmailDetails"
 import SortBar from "./SortBar"
 import { useEffect, useState } from "react"
 import { useNavigate, useParams, useSearchParams  } from "react-router-dom"
+import { showSuccessMsg, showErrorMsg } from "../services/event-bus.service"
 
 function EmailIndex() {
   // params
@@ -118,10 +119,11 @@ function onSend(email) {
   emailService.handleSendEmail(email)
   setSearchParams((prev) => {
     prev.delete('compose');
+    showSuccessMsg("Message sent succesfully")
     return prev;
   });
   } catch(e) {
-    console.log(e)
+    showSuccessMsg("Message could not be sent")
   }
 }
 async function onUnreadEmailclick(id) {
